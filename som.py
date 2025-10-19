@@ -1527,12 +1527,9 @@ No deletions performed. This file stands alone (no underscores in name) as the
 monolithic biological substrate.
 """
 
-from __future__ import annotations
-import numpy as np
-import time
-import logging
+# Note: Imports already present at top of file
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Any
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -2540,9 +2537,10 @@ class EndocrineSystem:
             'calmness': (profile.serotonin * 0.4 +
                         profile.melatonin * 0.3 -
                         profile.cortisol * 0.3)
+        }
 
 
-                        import numpy as np
+import numpy as np
 import logging
 from typing import Dict, List, Optional, Tuple
 import time
