@@ -488,15 +488,20 @@ class NeuralFabricTrainer:
         
         # Ensure fabric_input matches expected dimensions
         if fabric_input.shape[1:4] != self.config.spatial_dims:
-            # Resize if needed
-            fabric_input = np.zeros((batch_size, *self.config.spatial_dims), dtype=np.float32)
-            fabric_input[:, :min(fabric_input.shape[1], conv_output.shape[1]),
-                        :min(fabric_input.shape[2], conv_output.shape[2]),
-                        :min(fabric_input.shape[3], conv_output.shape[3])] = (
-                conv_output[:, :fabric_input.shape[1], :fabric_input.shape[2], :fabric_input.shape[3]]
-                if len(conv_output.shape) == 4 else
-                np.mean(conv_output, axis=(4, 5))[:, :fabric_input.shape[1], :fabric_input.shape[2], :fabric_input.shape[3]]
-            )
+            # Store original shape before resizing
+            orig_shape = fabric_input.shape[1:4]
+            target_shape = self.config.spatial_dims
+            
+            # Create resized array
+            resized = np.zeros((batch_size, *target_shape), dtype=np.float32)
+            
+            # Copy data with proper bounds
+            x_size = min(orig_shape[0], target_shape[0])
+            y_size = min(orig_shape[1], target_shape[1])
+            z_size = min(orig_shape[2], target_shape[2])
+            
+            resized[:, :x_size, :y_size, :z_size] = fabric_input[:, :x_size, :y_size, :z_size]
+            fabric_input = resized
         
         fabric_output = self.neural_fabric.forward(fabric_input, current_time)
         
