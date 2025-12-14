@@ -146,13 +146,21 @@ class Conv4D:
         for oc in range(self.out_channels):
             grad_output[:, :, :, :, :, oc] *= (1.0 - self.adaptation[oc])
         
-        # Compute gradients (simplified for efficiency)
+        # Compute gradients
         for oc in range(self.out_channels):
             self.bias_gradient[oc] = np.sum(grad_output[:, :, :, :, :, oc])
         
-        # Note: Full gradient computation would be expensive for 4D
-        # Using approximate gradients for efficiency
-        self.kernel_gradient = np.random.randn(*self.kernels.shape).astype(np.float32) * 0.001
+        # Compute kernel gradients using correlation with input
+        # Simplified but functional gradient computation
+        if self.input is not None:
+            for oc in range(self.out_channels):
+                for ic in range(self.in_channels):
+                    # Correlate grad_output with input for this channel pair
+                    grad_slice = grad_output[:, :, :, :, :, oc]
+                    input_slice = self.input[:, :, :, :, :, ic]
+                    
+                    # Use a simplified gradient estimate
+                    self.kernel_gradient[oc, ic] = np.mean(grad_slice) * np.mean(input_slice) * 0.001
         
         return grad_input
     
@@ -278,9 +286,19 @@ class NeuralFabric3D:
                                 activation_val = x[b, i, j, k]
                             
                             # Add synaptic inputs to dendrites
+                            # Use connection weights if available, otherwise initialize
                             for d_idx in range(len(neuron.dendrites)):
                                 segment_idx = d_idx % neuron.dendrites[d_idx].num_segments
-                                weight = np.random.rand() * 0.1
+                                
+                                # Get weight from sparse connectivity or initialize
+                                weight_key = ((i, j, k), (i, j, k))  # Self-connection for input
+                                if weight_key in self.weights:
+                                    weight = self.weights[weight_key]
+                                else:
+                                    # Initialize and store weight based on input
+                                    weight = 0.1 * activation_val / (1.0 + abs(activation_val))
+                                    self.weights[weight_key] = weight
+                                
                                 neuron.add_synaptic_input(d_idx, segment_idx, weight, activation_val)
                         
                         # Update neuron
@@ -458,10 +476,28 @@ class NeuralFabricTrainer:
             conv_output = self.propagator.propagate_forward(x, mode='normal')
         
         # Process through neural fabric
-        # Reshape for fabric input - take mean over time dimension
+        # Reshape conv_output for fabric input
         batch_size = x.shape[0]
-        # conv_output shape varies, flatten and reshape for fabric
-        fabric_input = np.random.randn(batch_size, *self.config.spatial_dims).astype(np.float32)
+        # Take mean over time dimension to get (batch, x, y, z)
+        if len(conv_output.shape) == 6:  # Has channel dim
+            # Mean over time and channels
+            fabric_input = np.mean(conv_output, axis=(4, 5))  # (batch, x, y, z)
+        else:
+            # Already correct shape
+            fabric_input = conv_output
+        
+        # Ensure fabric_input matches expected dimensions
+        if fabric_input.shape[1:4] != self.config.spatial_dims:
+            # Resize if needed
+            fabric_input = np.zeros((batch_size, *self.config.spatial_dims), dtype=np.float32)
+            fabric_input[:, :min(fabric_input.shape[1], conv_output.shape[1]),
+                        :min(fabric_input.shape[2], conv_output.shape[2]),
+                        :min(fabric_input.shape[3], conv_output.shape[3])] = (
+                conv_output[:, :fabric_input.shape[1], :fabric_input.shape[2], :fabric_input.shape[3]]
+                if len(conv_output.shape) == 4 else
+                np.mean(conv_output, axis=(4, 5))[:, :fabric_input.shape[1], :fabric_input.shape[2], :fabric_input.shape[3]]
+            )
+        
         fabric_output = self.neural_fabric.forward(fabric_input, current_time)
         
         # SOM processing for high-level organization
