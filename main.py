@@ -605,10 +605,7 @@ class LillithOrchestrator:
             logger.critical(traceback.format_exc())
             raise
 
-    # Removed SOM initialization logic per user request
-            
-
-            logger.info("SOM initialization completed.")
+    # SOM initialization logic removed per user request
 
     def _detect_webcam_mic(self) -> Optional[int]:
         """Attempt to locate a likely webcam microphone by name heuristics.
