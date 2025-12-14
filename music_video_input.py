@@ -40,14 +40,17 @@ class MusicVideoInput:
     Audio and video are processed together as unified inputs to the SOM.
     """
     
-    def __init__(self, video_directory: str = "./music_videos"):
+    def __init__(self, video_directory: str = "./music_videos", 
+                 frame_size: tuple = (64, 64)):
         """
         Initialize music video input pipeline.
         
         Args:
             video_directory: Directory containing the 6 music video files
+            frame_size: Size to resize video frames for feature extraction (width, height)
         """
         self.video_directory = video_directory
+        self.frame_size = frame_size
         self.running = False
         self.current_video_index = 0
         
@@ -192,8 +195,8 @@ class MusicVideoInput:
         Extract visual features from video frame.
         Returns a feature vector suitable for SOM input.
         """
-        # Resize frame to standard size
-        resized = cv2.resize(frame, (64, 64))
+        # Resize frame to configured size
+        resized = cv2.resize(frame, self.frame_size)
         
         # Convert to grayscale
         if len(resized.shape) == 3:

@@ -43,7 +43,7 @@ def run_with_music_videos():
     # Check if videos exist
     import os
     videos_exist = all(
-        os.path.exists(os.path.join("./music_videos", video))
+        os.path.exists(os.path.join(mv_input.video_directory, video))
         for video in mv_input.playlist
     )
     
