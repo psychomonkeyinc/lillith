@@ -350,7 +350,7 @@ class Language:
     def get_phoneme_inventory(self) -> List[str]:
         return getattr(self, 'phoneme_inventory', [])
 
-    # Placeholder training hook for future self-supervised adaptation
+    # Self-supervised adaptation hook
     def adapt_phoneme_projection(self, feedback: List[Tuple[int, float]], lr: float = 1e-3):
         """Lightweight adaptation of phoneme projection using simple feedback.
         feedback: list of (phoneme_index, reward_signal in [-1,1])

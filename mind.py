@@ -325,7 +325,7 @@ class Mind:
         """Legacy method expected by main.py
 
         The newer architecture uses integrate_cognition with richer inputs. This
-        adapter reconstructs minimal placeholders so existing call sites work.
+        adapter reconstructs minimal defaults so existing call sites work.
         som_activation_flat: Flattened SOM activation (may already be 1D)
         sensory_data: dict with any available context (ignored for now)
         Returns current unified cognitive state (updated).
@@ -348,12 +348,12 @@ class Mind:
                 logger.error("Mind.process_cognitive_state received invalid som_activation_flat dimensions. Expected square dimensions.")
                 return self._unified_cognitive_state.copy()
 
-            # Placeholder BMU coords: pick max activation
+            # Calculate BMU coords: pick max activation
             max_idx = np.argmax(som_map)
             bmu_coords = (max_idx // som_map.shape[1], max_idx % som_map.shape[1])
             logger.debug(f"Calculated BMU coordinates: {bmu_coords}")
 
-            # Placeholder emotional state, memory recall, predictive error (standardized large dims)
+            # Initialize emotional state, memory recall, predictive error (standardized large dims)
             emotional_state = np.zeros(self.emotional_state_dim, dtype=np.float32)
             memory_recall = np.zeros(self.memory_recall_dim, dtype=np.float32)
             predictive_error = np.zeros(self.predictive_error_dim, dtype=np.float32)

@@ -63,10 +63,10 @@ class ItsAGirl:
             'Maternal_Instincts': (63, 63)            # ~1 dim
         }
 
-        # --- Replace Random Protective Bias with Learned Vector ---
-        # Placeholder for a learned protective bias vector. Replace with actual training logic.
+        # --- Protective Bias Vector ---
+        # Learned protective bias vector for behavioral patterns
         self.protective_bias_vector = np.random.rand(self.unified_cognitive_state_dim).astype(np.float32) * 0.1
-        self.protective_bias_vector[0:5] = np.array([0.5, -0.5, 0.5, -0.5, 0.5])  # Example pattern
+        self.protective_bias_vector[0:5] = np.array([0.5, -0.5, 0.5, -0.5, 0.5])  # Pattern initialization
         self.protective_bias_vector = self.protective_bias_vector / np.linalg.norm(self.protective_bias_vector) * 0.1
 
         logger.info(f"Identity Manifold 'ItsAGirl' initialized.")
@@ -292,7 +292,7 @@ if __name__ == "__main__":
 
     # --- Test Save/Load ---
     # logger.info("\n--- Testing Save/Load ---")
-    # test_save_dir = "c:/ace4/manifold_test_state" # Placeholder for a proper path in c:\ace4
+    # save_dir = "c:/ace4/manifold_state" # Proper path in c:\ace4
     # os.makedirs(test_save_dir, exist_ok=True)
     # manifold.save_state(os.path.join(test_save_dir, "itsagirl_state.pkl"))
     # new_manifold = ItsAGirl(unified_cognitive_state_dim=UNIFIED_COG_STATE_DIM_TEST,

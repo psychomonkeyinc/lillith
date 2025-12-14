@@ -24,6 +24,9 @@
 - 💬 **Internal Language** - Symbolic reasoning workspace
 
 ### Advanced Features
+- **Music Video Input** - Passive learning from 6 music videos (Beach Boys, Beatles, Jim Croce, Depeche Mode, Nirvana, Backstreet Boys)
+- **Unified Audio+Video Processing** - Audio and video processed together, not split
+- **Passive Learning** - "Babysitting" mode - continuous exposure without explicit training
 - **Agency-Focused Optimization** - JustinJ optimizer with vocal feedback integration
 - **Conscience Module** - Ethical reasoning and moral judgment
 - **Self-Model** - Gender-aware identity processing
@@ -94,9 +97,26 @@ cd lillith
 pip install numpy opencv-python PyQt5 pyaudio psutil
 ```
 
-3. **Run LILLITH**
+3. **Set up music videos (optional)**
+```bash
+mkdir music_videos
+# Place 6 music video files:
+# - beach_boys.mp4
+# - beatles.mp4
+# - jim_croce.mp4
+# - depeche_mode.mp4
+# - nirvana.mp4
+# - backstreet_boys.mp4
+```
+
+4. **Run LILLITH**
 ```bash
 python run.py
+```
+
+5. **Or run with music video input**
+```bash
+python music_video_input.py
 ```
 
 ### Alternative: Using requirements.txt
@@ -138,6 +158,33 @@ export LILLITH_DREAM_SEC=90
 python run.py
 ```
 
+### Music Video Input (Passive Learning)
+
+LILLITH can learn passively from music videos in "babysitting" mode:
+
+```bash
+# Create music video directory
+mkdir music_videos
+
+# Add 6 music videos:
+# - beach_boys.mp4
+# - beatles.mp4
+# - jim_croce.mp4
+# - depeche_mode.mp4
+# - nirvana.mp4
+# - backstreet_boys.mp4
+
+# Run music video input
+python music_video_input.py
+```
+
+In this mode:
+- Videos play in continuous loop
+- Audio and video processed together (not split)
+- SOM learns passively through exposure
+- No explicit training runs
+- Just turn it on and let it run
+
 ### Device Selection
 
 On startup, LILLITH will:
@@ -164,6 +211,7 @@ Logs are written to `main_log.txt` in the working directory.
 lillith/
 ├── run.py                    # Entry point
 ├── main.py                   # Main orchestrator (1,661 lines)
+├── music_video_input.py     # Music video passive learning (320 lines)
 ├── display.py                # PyQt UI (808 lines)
 ├── nn.py                     # Neural networks (600 lines)
 ├── OptiJustinJ.py           # JustinJ optimizer (460 lines)
@@ -191,6 +239,7 @@ lillith/
 ├── reward.py                 # Deprecated (44 lines)
 ├── MODEL_MAP.md             # Complete architecture map
 ├── TECHNICAL_PAPER.md       # Technical documentation
+├── IMPLEMENTATION_SUMMARY.md # Music video learning summary
 └── README.md                 # This file
 ```
 
