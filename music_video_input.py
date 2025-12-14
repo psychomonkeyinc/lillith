@@ -28,7 +28,7 @@ try:
     import cv2
 except ImportError:
     cv2 = None
-    logging.warning("OpenCV not available - music video input disabled")
+    logging.warning("OpenCV not available - music video input disabled. Install with: pip install opencv-python")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -223,19 +223,26 @@ class MusicVideoInput:
     def _extract_audio_features(self, frame_number: int) -> np.ndarray:
         """
         Extract audio features corresponding to current video frame.
-        In a full implementation, this would extract from the video's audio track.
+        
+        NOTE: This is a placeholder implementation. In production, use proper audio
+        extraction (e.g., ffmpeg, librosa) to extract real audio features from the
+        video's audio track. The current implementation generates synthetic features
+        which limits learning effectiveness but allows the system to run.
         """
         # Placeholder: Generate synthetic audio features based on frame number
-        # In real implementation, would use proper audio extraction (e.g., ffmpeg)
+        # TODO: Replace with actual audio extraction for production use
         
         # Simple spectral-like features
         num_features = 128
         features = np.zeros(num_features, dtype=np.float32)
         
         # Simulate some temporal variation
-        phase = frame_number * 0.01
+        TEMPORAL_SCALE = 0.01  # Phase advancement per frame
+        FREQUENCY_SCALE = 0.1  # Frequency bin spacing
+        
+        phase = frame_number * TEMPORAL_SCALE
         for i in range(num_features):
-            features[i] = 0.5 * (1.0 + np.sin(phase + i * 0.1))
+            features[i] = 0.5 * (1.0 + np.sin(phase + i * FREQUENCY_SCALE))
         
         return features
     

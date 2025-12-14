@@ -91,10 +91,12 @@ def run_with_music_videos():
             # Get unified audio+video features
             if run_demo:
                 # Demo mode: generate synthetic features
+                audio_feat = np.random.randn(128).astype(np.float32)
+                video_feat = np.random.randn(4099).astype(np.float32)
                 features = {
-                    'audio': np.random.randn(128).astype(np.float32),
-                    'video': np.random.randn(4099).astype(np.float32),
-                    'combined': np.random.randn(4227).astype(np.float32)
+                    'audio': audio_feat,
+                    'video': video_feat,
+                    'combined': np.concatenate([audio_feat, video_feat])
                 }
             else:
                 features = mv_input.get_unified_features()
