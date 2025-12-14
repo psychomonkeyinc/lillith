@@ -695,7 +695,7 @@ However, whether this constitutes genuine phenomenal experience remains an open 
 ### 15.2 Conscience Module
 
 The inclusion of a `conscience.py` module represents an attempt to embed ethical reasoning. However:
-- Moral judgment requires extensive training on human values
+- Moral judgment emerges from continuous exposure to human values
 - Current implementation is a scaffold for future moral learning
 - No guarantee of alignment with human ethics without proper training
 
