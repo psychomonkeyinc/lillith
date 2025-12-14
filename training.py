@@ -9,9 +9,20 @@ from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass
 from collections import deque
 
-from som import SelfOrganizingMap, Neuron, DendriticBranch, BioSystem, LayeredFatigue
-from nn import Sequential, Linear, ReLU, GELU, Tanh, LayerNorm
-from OptiJustinJ import JustinJOptimizer
+try:
+    from som import SelfOrganizingMap, Neuron, DendriticBranch, BioSystem, LayeredFatigue
+except ImportError:
+    from .som import SelfOrganizingMap, Neuron, DendriticBranch, BioSystem, LayeredFatigue
+
+try:
+    from nn import Sequential, Linear, ReLU, GELU, Tanh, LayerNorm
+except ImportError:
+    from .nn import Sequential, Linear, ReLU, GELU, Tanh, LayerNorm
+
+try:
+    from OptiJustinJ import JustinJOptimizer
+except ImportError:
+    from .OptiJustinJ import JustinJOptimizer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -110,8 +121,8 @@ class Conv4D:
                                 
                                 # Convolve with kernel
                                 # patch shape: (kx, ky, kz, kt, in_channels)
-                                # kernel shape: (in_channels, kx, ky, kz, kt)
-                                # Need to transpose for proper convolution
+                                # kernel shape: (out_channels, in_channels, kx, ky, kz, kt)
+                                # Convolve each input channel with corresponding kernel
                                 conv_sum = 0.0
                                 for ic in range(self.in_channels):
                                     kernel_slice = self.kernels[oc, ic]  # (kx, ky, kz, kt)
@@ -150,17 +161,41 @@ class Conv4D:
         for oc in range(self.out_channels):
             self.bias_gradient[oc] = np.sum(grad_output[:, :, :, :, :, oc])
         
-        # Compute kernel gradients using correlation with input
-        # Simplified but functional gradient computation
-        if self.input is not None:
+        # Compute kernel gradients using proper cross-correlation
+        # For 4D conv, gradient is correlation of grad_output with input patches
+        if self.input is not None and self.padding > 0:
+            padded_input = np.pad(self.input, ((0, 0), (self.padding, self.padding), 
+                                              (self.padding, self.padding), (self.padding, self.padding),
+                                              (self.padding, self.padding), (0, 0)), mode='constant')
+        else:
+            padded_input = self.input
+        
+        if padded_input is not None:
+            kx, ky, kz, kt = self.kernel_size
             for oc in range(self.out_channels):
                 for ic in range(self.in_channels):
-                    # Correlate grad_output with input for this channel pair
-                    grad_slice = grad_output[:, :, :, :, :, oc]
-                    input_slice = self.input[:, :, :, :, :, ic]
+                    kernel_grad = np.zeros((kx, ky, kz, kt), dtype=np.float32)
                     
-                    # Use a simplified gradient estimate
-                    self.kernel_gradient[oc, ic] = np.mean(grad_slice) * np.mean(input_slice) * 0.001
+                    # Correlate grad_output with input patches
+                    for b in range(batch_size):
+                        grad_slice = grad_output[b, :, :, :, :, oc]
+                        
+                        for i in range(grad_slice.shape[0]):
+                            for j in range(grad_slice.shape[1]):
+                                for k in range(grad_slice.shape[2]):
+                                    for t in range(grad_slice.shape[3]):
+                                        # Extract corresponding input patch
+                                        ii = i * self.stride
+                                        jj = j * self.stride
+                                        kk = k * self.stride
+                                        tt = t * self.stride
+                                        
+                                        patch = padded_input[b, ii:ii+kx, jj:jj+ky, kk:kk+kz, tt:tt+kt, ic]
+                                        
+                                        # Accumulate gradient
+                                        kernel_grad += grad_slice[i, j, k, t] * patch
+                    
+                    self.kernel_gradient[oc, ic] = kernel_grad / batch_size
         
         return grad_input
     
