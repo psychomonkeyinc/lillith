@@ -38,7 +38,7 @@ class Layer:
         return self.forward(input_data)
 
     def get_trainable_params(self) -> List[Tuple[np.ndarray, np.ndarray]]:
-        """Returns a list of (parameter, gradient_placeholder) tuples for this layer."""
+        """Returns a list of (parameter, gradient) tuples for this layer."""
         return [] # Default for layers without trainable params
 
 class Linear(Layer):
@@ -74,7 +74,7 @@ class Linear(Layer):
         self.max_plastic_magnitude = np.float16(1.0)
         self.plastic_cleanup_threshold = np.float16(0.001)
 
-        # Placeholders for gradients
+        # Gradient storage
         self.weights_gradient = None
         self.biases_gradient = None
 
@@ -141,7 +141,7 @@ class Linear(Layer):
         return input_gradient
 
     def get_trainable_params(self) -> List[Tuple[np.ndarray, Any]]:
-        """Returns list of (parameter_array, gradient_placeholder_array) tuples."""
+        """Returns list of (parameter_array, gradient_array) tuples."""
         return [(self.weights, 'weights_gradient'), (self.biases, 'biases_gradient')]
 
     def train(self):
@@ -266,7 +266,7 @@ class LayerNorm(Layer):
         return input_gradient
 
     def get_trainable_params(self) -> List[Tuple[np.ndarray, Any]]:
-        """Returns list of (parameter_array, gradient_placeholder_string) tuples for LayerNorm."""
+        """Returns list of (parameter_array, gradient_string) tuples for LayerNorm."""
         return [(self.gamma, 'gamma_gradient'), (self.beta, 'beta_gradient')]
 
 class Sequential:
@@ -296,7 +296,7 @@ class Sequential:
 
     def get_trainable_params(self) -> List[Tuple[np.ndarray, Any, Layer]]:
         """
-        Returns a list of (parameter_array, gradient_placeholder_string, layer_instance) tuples
+        Returns a list of (parameter_array, gradient_string, layer_instance) tuples
         for all trainable parameters in the network.
         """
         params_list = []

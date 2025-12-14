@@ -271,7 +271,7 @@ class Output:
         focus_vector = _fit(focus_vector, self.focus_vector_dim)
         internal_lang_activity = _fit(internal_lang_activity, self.internal_lang_activity_dim)
         # vocal_synth_params_dim: reserved future coupling; supply zeros
-        vocal_placeholder = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
+        vocal_params = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
         goals_satisfaction = _fit(goals_satisfaction, self.goals_dim)
 
         combined_input = np.concatenate([
@@ -279,7 +279,7 @@ class Output:
             emotional_state,
             focus_vector,
             internal_lang_activity,
-            vocal_placeholder,
+            vocal_params,
             goals_satisfaction
         ])
 
@@ -289,7 +289,7 @@ class Output:
                 ('emotion', self.emotion_dim),
                 ('focus', self.focus_vector_dim),
                 ('internal_lang', self.internal_lang_dim),
-                ('vocal_placeholder', self.vocal_synth_params_dim),
+                ('vocal_params', self.vocal_synth_params_dim),
                 ('goals', self.goals_dim)
             ]
             actual_breakdown = [
@@ -297,7 +297,7 @@ class Output:
                 ('emotion', emotional_state.shape[0]),
                 ('focus', focus_vector.shape[0]),
                 ('internal_lang', internal_lang_activity.shape[0]),
-                ('vocal_placeholder', vocal_placeholder.shape[0]),
+                ('vocal_params', vocal_params.shape[0]),
                 ('goals', goals_satisfaction.shape[0])
             ]
             logger.warning(
@@ -316,7 +316,7 @@ class Output:
                 internal_lang_activity,
                 focus_vector,
                 goals_satisfaction,
-                vocal_synth_placeholder=vocal_placeholder
+                vocal_synth_placeholder=vocal_params
             )
         except Exception as e:
             logger.error(f"Output.generate_output: generate_controls failed: {e}")

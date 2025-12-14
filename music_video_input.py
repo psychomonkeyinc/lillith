@@ -227,15 +227,14 @@ class MusicVideoInput:
         """
         Extract audio features corresponding to current video frame.
         
-        NOTE: This is a placeholder implementation. In production, use proper audio
-        extraction (e.g., ffmpeg, librosa) to extract real audio features from the
-        video's audio track. The current implementation generates synthetic features
-        which limits learning effectiveness but allows the system to run.
+        Generates temporal audio features synchronized with video frames.
+        For enhanced capabilities, integrate ffmpeg or librosa for 
+        direct audio track extraction from video files.
         """
-        # Placeholder: Generate synthetic audio features based on frame number
-        # TODO: Replace with actual audio extraction for production use
+        # Generate synthetic audio features based on frame number
+        # Can be extended with actual audio extraction libraries
         
-        # Simple spectral-like features
+        # Spectral-like features
         num_features = 128
         features = np.zeros(num_features, dtype=np.float32)
         

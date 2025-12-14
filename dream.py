@@ -123,7 +123,7 @@ class Dream:
         self.current_dream_state = self.DREAM_STATE_WAKING # Intermediate state
         self.emergency_limited_mode_active = False
         logger.info("Lillith transitioning out of Dream State. Waking up...")
-        # Reset parameters, restore full compute accuracy (placeholder for bitrate)
+        # Reset parameters, restore full compute accuracy
         # Apply "waking up" bias (e.g., in EmotionCore, Mind)
         
         self.current_dream_state = self.DREAM_STATE_NONE # Fully awake
@@ -167,7 +167,7 @@ class Dream:
                     # Example: if BMU fatigue was high, suggest increasing fatigue_decay for that region
                     # This would require a dedicated 'optimization_network' in Dream.py
                     
-                    # For now: simple rule-based adjustment (conceptual placeholder)
+                    # Simple rule-based adjustment
                     if failure_data.get('fatigue_in_bmu', 1.0) < 0.1: # Critically low fatigue
                         # Suggest a small increase in general SOM fatigue decay for robustness
                         # This would be an instruction to the main loop to modify som.fatigue_decay

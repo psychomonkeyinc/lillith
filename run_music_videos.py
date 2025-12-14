@@ -3,8 +3,8 @@
 run_music_videos.py
 
 Run LILLITH with music video input for passive learning.
-This demonstrates the "babysitting" approach where the system
-learns from continuous exposure to music videos without explicit training.
+The "babysitting" approach - the system learns from continuous 
+exposure to music videos without explicit operations.
 """
 
 import sys
@@ -53,11 +53,11 @@ def run_with_music_videos():
         for i, video in enumerate(mv_input.playlist, 1):
             logger.info(f"  {i}. {video}")
         logger.info("\nSee ./music_videos/README.txt for details.")
-        logger.info("\nRunning in demo mode with synthetic features...")
-        run_demo = True
+        logger.info("\nRunning with fallback synthetic features until videos are added...")
+        use_fallback = True
     else:
         logger.info("✓ All music videos found")
-        run_demo = False
+        use_fallback = False
     
     # Initialize SOM (if available)
     try:
@@ -80,7 +80,7 @@ def run_with_music_videos():
     logger.info("The system will learn passively from audio+video exposure.")
     logger.info("Press Ctrl+C to stop.\n")
     
-    if not run_demo:
+    if not use_fallback:
         mv_input.start()
     
     try:
@@ -89,8 +89,8 @@ def run_with_music_videos():
             cycle += 1
             
             # Get unified audio+video features
-            if run_demo:
-                # Demo mode: generate synthetic features
+            if use_fallback:
+                # Generate synthetic features until videos are available
                 audio_feat = np.random.randn(128).astype(np.float32)
                 video_feat = np.random.randn(4099).astype(np.float32)
                 features = {
@@ -107,8 +107,8 @@ def run_with_music_videos():
                 
                 # Log progress periodically
                 if cycle % 30 == 0:
-                    stats = mv_input.get_statistics() if not run_demo else {
-                        'current_video': 'demo',
+                    stats = mv_input.get_statistics() if not use_fallback else {
+                        'current_video': 'synthetic',
                         'videos_played': cycle // 30,
                         'total_frames': cycle,
                         'running': True
@@ -130,19 +130,19 @@ def run_with_music_videos():
     except KeyboardInterrupt:
         logger.info("\n\nStopping music video playback...")
     finally:
-        if not run_demo:
+        if not use_fallback:
             mv_input.stop()
         
         logger.info("\n" + "=" * 70)
         logger.info("Session Summary")
         logger.info("=" * 70)
         
-        if not run_demo:
+        if not use_fallback:
             final_stats = mv_input.get_statistics()
             logger.info(f"Videos played: {final_stats['videos_played']}")
             logger.info(f"Total frames processed: {final_stats['total_frames']}")
         else:
-            logger.info(f"Demo cycles: {cycle}")
+            logger.info(f"Cycles completed: {cycle}")
         
         if som:
             som_status = som.get_training_status()

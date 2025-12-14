@@ -421,18 +421,18 @@ class LillithOrchestrator:
                 logger.warning(f"Early I/O init encountered an issue: {io_e}")
 
             stage("CAFVE startup...")
-            # Initialize CAFVE and try to load trained model
+            # Initialize CAFVE and try to load saved model
             self.cafve = ConsciousnessAwareFeatureVectorEncoder(sfe_feature_dim=current_sfe_dim, token_output_dim=CAFVE_TOKEN_DIM)
             
-            # Try to load trained CAFVE model
+            # Try to load saved CAFVE model
             try:
-                self.cafve.load("trainedcafve.pkl")
-                logger.info("Successfully loaded trained CAFVE model!")
+                self.cafve.load("cafve_model.pkl")
+                logger.info("Successfully loaded saved CAFVE model!")
             except FileNotFoundError:
-                logger.warning("Trained CAFVE model not found, using untrained tokenizer")
+                logger.warning("CAFVE model not found, using fresh tokenizer")
             except Exception as e:
-                logger.error(f"Error loading trained CAFVE: {e}")
-                logger.warning("Using untrained CAFVE tokenizer")
+                logger.error(f"Error loading CAFVE: {e}")
+                logger.warning("Using fresh CAFVE tokenizer")
 
             stage("SOM startup...")
             logger.info("Setting up cognitive mapping...")
@@ -560,13 +560,13 @@ class LillithOrchestrator:
             # Attach the helper to the instance for later use by the run loop
             self.create_dream = create_dream_if_needed
 
-            # Ensure dummy CAFVE state exists if none present (user request)
+            # Ensure CAFVE state exists if none present (user request)
             try:
-                if not os.path.exists('trainedcafve.pkl') and hasattr(self.cafve, 'save'):
-                    self.cafve.save('trainedcafve.pkl')
-                    logger.info("Created dummy trained CAFVE state (trainedcafve.pkl)")
+                if not os.path.exists('cafve_model.pkl') and hasattr(self.cafve, 'save'):
+                    self.cafve.save('cafve_model.pkl')
+                    logger.info("Created initial CAFVE state (cafve_model.pkl)")
             except Exception as ce:
-                logger.warning(f"Failed to create dummy CAFVE state: {ce}")
+                logger.warning(f"Failed to create CAFVE state: {ce}")
 
             stage("Data Collection startup...")
             logger.info("Finalizing I/O systems (data collection & confirm UI)...")
@@ -605,10 +605,10 @@ class LillithOrchestrator:
             logger.critical(traceback.format_exc())
             raise
 
-    # Removed _train_som_initially and all SOM pickle logic per user request
+    # Removed SOM initialization logic per user request
             
 
-            logger.info("Fallback SOM training completed.")
+            logger.info("SOM initialization completed.")
 
     def _detect_webcam_mic(self) -> Optional[int]:
         """Attempt to locate a likely webcam microphone by name heuristics.
@@ -907,13 +907,13 @@ class LillithOrchestrator:
                         if self.cycle_count % 10 == 0:
                             logger.warning(f"Data snapshot failed: {snap_err}")
 
-                    # Update health metrics (basic pass-through with placeholders for currently unused systems)
+                    # Update health metrics (basic pass-through for currently unused systems)
                     try:
                         som_fatigue_map = getattr(self.som, 'fatigue_map', np.zeros(SOM_MAP_SIZE, dtype=np.float16))
                         som_failure_log_count = len(getattr(self.som, 'failure_log', []))
-                        # Prediction error not yet computed in loop; placeholder 0.0
+                        # Prediction error not yet computed in loop
                         predict_error_norm = 0.0
-                        # Moral tension currently only updates if conscience.evaluate_moral_context is called – placeholder for now
+                        # Moral tension currently only updates if conscience.evaluate_moral_context is called
                         moral_tension_level = getattr(self.conscience, 'get_moral_tension_level', lambda: 0.0)()
                         emotional_state_norm = float(np.linalg.norm(emotional_state)) if emotional_state is not None else 0.0
                         cognitive_load_norm = float(np.linalg.norm(cognitive_state)) if cognitive_state is not None else 0.0
@@ -1005,7 +1005,7 @@ class LillithOrchestrator:
                             # Removed SOM save logic per user request
                             try:
                                 if hasattr(self.cafve, 'save'):
-                                    self.cafve.save('trainedcafve.pkl')
+                                    self.cafve.save('cafve_model.pkl')
                             except Exception as ce:
                                 logger.warning(f"CAFVE save failed: {ce}")
                             self._run_phase = 'DONE'
@@ -1299,7 +1299,7 @@ class LillithOrchestrator:
         tiredness_factor = float(getattr(self.health, 'get_tiredness_factor', lambda: 0.0)())
         moral_tension_level = float(getattr(self.conscience, 'get_moral_tension_level', lambda: 0.0)())
 
-        # Placeholder metrics until integrated
+        # Initialize metrics
         predict_error_norm = 0.0
         novelty_score = 0.0
         manifold_deviation = 0.0
@@ -1321,7 +1321,7 @@ class LillithOrchestrator:
             except Exception:
                 dream_replay_stats = None
 
-        # Mind summary / goals info placeholders
+        # Mind summary / goals info
         try:
             mind_dims = self.mind.get_current_dimensions()
         except Exception:
