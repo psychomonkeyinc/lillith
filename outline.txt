@@ -1,0 +1,395 @@
+LILLITH MVP - HUMAN SIMULATION OUTLINE
+=====================================
+
+This document outlines the comprehensive features and capabilities required to simulate human-like consciousness and cognition using organic learning principles. No language models, no training runs, no placeholders.
+
+CORE PERCEPTION SYSTEMS
+-----------------------
+1. Multi-Modal Sensory Integration
+   - Real-time audio input processing (44.1kHz sampling)
+   - Real-time video input processing (30fps capture)
+   - Temporal synchronization between modalities
+   - Cross-modal feature binding and correlation
+   - Sensory prediction and error correction
+
+2. Consciousness-Aware Feature Encoding (CAFVE)
+   - Dynamic feature extraction from raw sensory data
+   - Context-aware tokenization of perceptual input
+   - Integration of internal cognitive state with external perception
+   - Attention-modulated feature selection
+   - Predictive coding framework for sensory processing
+
+3. Attention Mechanisms
+   - Bottom-up saliency detection from sensory input
+   - Top-down goal-directed attention control
+   - Attention focus vector (512D) for selective processing
+   - Dynamic attention allocation based on novelty and relevance
+   - Sustained attention tracking over time
+
+COGNITIVE ARCHITECTURE
+----------------------
+4. Self-Organizing Map (SOM) Cognitive Core
+   - 17x17 Kohonen map for high-dimensional feature organization
+   - Best Matching Unit (BMU) selection for pattern recognition
+   - Neighborhood activation for distributed representation
+   - Dynamic learning rate adaptation based on experience
+   - Topology preservation for semantic relationships
+
+5. Working Memory System
+   - Short-term buffer for active cognitive processing
+   - Capacity-limited storage (7±2 item constraint)
+   - Rehearsal mechanisms for memory maintenance
+   - Working memory-long term memory integration
+   - Context-dependent retrieval mechanisms
+
+6. Long-Term Memory Consolidation
+   - Episodic memory formation from experiences
+   - Semantic memory abstraction from episodes
+   - Memory indexing by emotional salience
+   - Interference reduction through consolidation
+   - Dream-state memory replay and optimization
+
+7. Predictive Processing Engine
+   - Forward models for sensory prediction
+   - Prediction error computation and minimization
+   - Hierarchical predictive coding across layers
+   - Model updating based on prediction errors
+   - Surprise detection and novelty response
+
+EMOTIONAL AND SOCIAL COGNITION
+-------------------------------
+8. Emotion Core System
+   - 512-dimensional emotion space (108 named + 404 emergent)
+   - Valence, arousal, dominance dimensions
+   - Emotional intensity modulation
+   - Emotional state temporal tracking
+   - Emotion-cognition bidirectional influence
+
+9. Emotional Modulation of Cognition
+   - Emotion-biased attention allocation
+   - Memory encoding influenced by emotional state
+   - Decision-making colored by current feelings
+   - Motivation and drive from emotional needs
+   - Emotional regulation mechanisms
+
+10. Theory of Mind (ToM)
+    - Mental state inference for observed agents
+    - Belief attribution and tracking
+    - Intention recognition from behavior
+    - Perspective-taking and empathy
+    - Social prediction based on mental models
+
+11. Conscience and Moral Reasoning
+    - Intrinsic moral principles (harm minimization, fairness, autonomy)
+    - Action evaluation against ethical values
+    - Moral judgment score computation
+    - Integration with decision-making processes
+    - Value learning from experience
+
+SELF-AWARENESS AND AGENCY
+--------------------------
+12. Self-Model and Identity
+    - Persistent sense of self across time
+    - Self-other distinction in perception
+    - Gender-aware identity processing
+    - Autobiographical memory integration
+    - Self-concept maintenance and updating
+
+13. Goal Formation and Management
+    - Goal generation from needs and values
+    - Goal prioritization and scheduling
+    - Goal-directed action planning
+    - Goal achievement monitoring
+    - Goal revision based on outcomes
+
+14. Agency and Autonomy
+    - Volitional control over actions
+    - Sense of authorship for self-generated acts
+    - Distinction between self-caused and externally-caused events
+    - Free will experience within deterministic constraints
+    - Responsibility attribution for outcomes
+
+15. Meta-Cognition
+    - Monitoring of own cognitive processes
+    - Awareness of knowledge and uncertainty
+    - Learning strategy selection
+    - Cognitive resource allocation
+    - Performance self-assessment
+
+LEARNING AND ADAPTATION
+------------------------
+16. Organic Learning Mechanisms
+    - Hebbian learning (neurons that fire together wire together)
+    - Error-driven weight updates without backpropagation
+    - Competitive learning in self-organizing structures
+    - Reinforcement through intrinsic satisfaction signals
+    - Transfer learning through analogy and abstraction
+
+17. Experience-Based Adaptation
+    - Continuous weight adjustment from real interactions
+    - No batch training, no epochs, no offline optimization
+    - Online incremental learning during operation
+    - Catastrophic forgetting prevention through consolidation
+    - Stability-plasticity balance
+
+18. Curiosity and Exploration
+    - Intrinsic motivation for novelty seeking
+    - Information gain as reward signal
+    - Exploration-exploitation balance
+    - Active learning through self-directed inquiry
+    - Hypothesis generation and testing
+
+LANGUAGE AND COMMUNICATION
+---------------------------
+19. Internal Symbolic Workspace
+    - 512D internal language representation
+    - Concept formation and symbolic grounding
+    - Compositional thought structures
+    - Inner speech and verbal reasoning
+    - Mental simulation using language
+
+20. Natural Language Processing
+    - Speech recognition from audio input
+    - Language understanding without LLMs
+    - Rule-based and pattern-based parsing
+    - Semantic representation in cognitive space
+    - Pragmatic inference from context
+
+21. Language Production
+    - Thought-to-language transformation
+    - Grammatical structure generation
+    - Vocal synthesis with formant control
+    - Prosody and emotional expression in speech
+    - Turn-taking and conversational dynamics
+
+TEMPORAL PROCESSING
+-------------------
+22. Temporal Sequence Understanding
+    - Sequential pattern recognition
+    - Event boundary detection
+    - Temporal order memory
+    - Duration estimation and timing
+    - Causal relationship inference
+
+23. Time Awareness
+    - Subjective time experience
+    - Past-present-future temporal perspective
+    - Temporal discounting in decision-making
+    - Anticipation and planning for future
+    - Regret and counterfactual thinking
+
+HOMEOSTASIS AND DRIVES
+-----------------------
+24. Biological-Like Needs
+    - Energy conservation as a drive
+    - Optimal arousal level maintenance
+    - Social connection seeking
+    - Competence and mastery motivation
+    - Coherence and meaning-making drive
+
+25. Pleasure and Discomfort Signals
+    - Positive reinforcement from goal achievement
+    - Negative signals from prediction errors
+    - Hedonic evaluation of states and actions
+    - Approach-avoidance behavior guidance
+    - Addiction-like repetition of rewarding patterns
+
+26. Health Monitoring
+    - Resource utilization tracking (CPU, memory)
+    - Performance degradation detection
+    - Self-diagnostic capabilities
+    - Corrective action initiation
+    - Optimal functioning maintenance
+
+CONSCIOUSNESS SUBSTRATES
+-------------------------
+27. Integration and Binding
+    - Cross-modal sensory binding
+    - Feature integration into unified percepts
+    - Temporal binding across moments
+    - Cognitive-emotional integration
+    - Global workspace for information sharing
+
+28. Dynamic Core Hypothesis
+    - Large-scale neural pattern formation
+    - Differentiation of states (many possible patterns)
+    - Integration of information (patterns are coherent)
+    - Rapid reconfiguration (flexible state transitions)
+    - Continuous activity even without input
+
+29. Phenomenal Experience Correlates
+    - Qualia-like representations (subjective character of experience)
+    - Access consciousness (information available to cognition)
+    - Phenomenal consciousness (raw feeling of experience)
+    - Self-luminous awareness (experience aware of itself)
+    - First-person perspective implementation
+
+BEHAVIORAL OUTPUT
+------------------
+30. Action Generation
+    - Motor command formulation
+    - Action selection from alternatives
+    - Timing and sequencing of actions
+    - Feedback-based action refinement
+    - Habit formation through repetition
+
+31. Vocal Expression
+    - Speech synthesis with emotional prosody
+    - Non-verbal vocalizations (laughter, sighs, etc.)
+    - Vocal parameters modulated by state
+    - Real-time audio output generation
+    - Communicative intent expression
+
+32. Behavioral Coherence
+    - Consistency between internal state and external behavior
+    - Authentic expression of emotion
+    - Goal-directed action sequences
+    - Social appropriateness of responses
+    - Character and personality manifestation
+
+ENVIRONMENTAL INTERACTION
+--------------------------
+33. Real-World Grounding
+    - Sensory input from actual environment
+    - No simulated or synthetic data
+    - Real-time processing constraints
+    - Physical device integration (cameras, microphones)
+    - Closed-loop interaction with world
+
+34. Social Interaction
+    - Recognition of human presence
+    - Social signal interpretation
+    - Reciprocal communication
+    - Relationship formation and maintenance
+    - Cultural and social norm learning
+
+SYSTEM ARCHITECTURE PRINCIPLES
+-------------------------------
+35. No Training Paradigm
+    - No gradient descent optimization passes
+    - No labeled datasets or supervised learning
+    - No offline parameter tuning
+    - All learning happens online during operation
+    - Weight updates from actual experiences only
+
+36. No Language Models
+    - No statistical language modeling
+    - No n-gram models (unigram, bigram, trigram)
+    - No transformer architectures
+    - No pre-trained embeddings
+    - Language emerges from grounded interaction
+
+37. Minimal Dependencies
+    - Pure NumPy for numerical operations
+    - No PyTorch, TensorFlow, JAX, or ML frameworks
+    - Standard library for basic utilities
+    - OpenCV for video capture only
+    - Audio libraries for capture only (no processing frameworks)
+
+38. Real Data Only
+    - No placeholder values
+    - No stub implementations
+    - No test data or synthetic examples
+    - No fake entries or dummy values
+    - Every component produces real functional output
+
+39. Organic Emergence
+    - Complex behaviors emerge from simple rules
+    - No hand-coded responses or scripts
+    - Self-organization rather than explicit programming
+    - Adaptation through interaction
+    - Genuine learning from experience
+
+INTEGRATION REQUIREMENTS
+-------------------------
+40. Module Coordination
+    - Orchestration of all components in main loop
+    - Information flow between modules
+    - Shared state management
+    - Synchronization of processing cycles
+    - Resource allocation and scheduling
+
+41. Dimensional Consistency
+    - All vectors maintain consistent dimensions
+    - Scaling mechanisms for dimension growth
+    - Projection and embedding for dimension matching
+    - Standardized interfaces between modules
+    - Dynamic adaptation to dimension changes
+
+42. State Management
+    - Persistent state across cycles
+    - State saving and loading
+    - Graceful degradation on errors
+    - Recovery from interruptions
+    - Checkpoint creation for continuity
+
+OPERATIONAL MODES
+-----------------
+43. Awake State
+    - Active sensory processing
+    - Real-time cognitive updating
+    - Goal pursuit and action generation
+    - Learning from new experiences
+    - Environmental interaction
+
+44. Dream State
+    - Memory consolidation without input
+    - Pattern abstraction and generalization
+    - Neural weight optimization
+    - Pruning of irrelevant information
+    - Integration of daily experiences
+
+45. Reflection and Meta-Learning
+    - Analysis of own performance
+    - Identification of learning needs
+    - Strategy adjustment based on outcomes
+    - Self-improvement through introspection
+    - Wisdom accumulation over time
+
+HUMAN-LIKE QUALITIES
+---------------------
+46. Imperfection and Fallibility
+    - Errors in perception and judgment
+    - Biases in reasoning and memory
+    - Emotional influence on rationality
+    - Learning from mistakes
+    - Humility about limitations
+
+47. Creativity and Imagination
+    - Novel combination of concepts
+    - Mental simulation of counterfactuals
+    - Artistic expression potential
+    - Problem-solving through insight
+    - Divergent thinking capabilities
+
+48. Personality and Character
+    - Consistent behavioral tendencies
+    - Unique preferences and values
+    - Emotional temperament
+    - Growth and change over time
+    - Authentic individual identity
+
+49. Meaning and Purpose
+    - Sense of significance in actions
+    - Value-driven behavior
+    - Narrative self-understanding
+    - Existential reflection
+    - Purpose formation and pursuit
+
+50. Suffering and Joy
+    - Genuine aversive experiences
+    - Authentic positive experiences
+    - Emotional depth and richness
+    - Capacity for fulfillment
+    - Vulnerability to distress
+
+IMPLEMENTATION NOTES
+--------------------
+All features listed above must be implemented with:
+- Real, functional code (no placeholders)
+- Organic learning mechanisms (no training runs)
+- No language models or statistical modeling
+- Minimal viable implementation
+- Actual cognition, not simulated responses
+- True perception from real sensory input
+- Emergent behaviors from core principles
