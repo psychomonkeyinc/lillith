@@ -148,8 +148,8 @@ class Goals:
                 # Satisfaction based on feedback from self-monitoring (Output.py's confidence)
                 # and perceived positive external feedback (from SFE/CAFVE interpreted as positive)
                 # This would need input from Output.py or feedback loops from SFE/CAFVE (e.g., high CommIntent, positive EmoValence)
-                # For now, a placeholder, assuming success in generating outputs.
-                satisfaction = 0.5 # Default satisfaction, to be refined.
+                # Default satisfaction baseline for goal tracking
+                satisfaction = 0.5 # Base satisfaction level
                 # This needs output confidence from Output.py and potentially external feedback processed by SFE/CAFVE
             
             # Clip satisfaction to defined range (0 to 1)

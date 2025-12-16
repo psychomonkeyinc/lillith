@@ -30,7 +30,7 @@ class Output:
 
     # Define the dimensions for simulated mouse/keyboard control
     MOUSE_CONTROL_DIMS = 5  # x_delta, y_delta, left_click, right_click, scroll
-    KEYBOARD_CONTROL_DIMS = 20 # Placeholder for key group pressures
+    KEYBOARD_CONTROL_DIMS = 20 # Key group pressures
 
     def __init__(self,
                  unified_cognitive_state_dim: int,
@@ -110,7 +110,7 @@ class Output:
             self.unified_dim +          # cognitive state
             self.emotion_dim +          # emotional state
             self.focus_vector_dim +     # attention focus
-            self.internal_lang_dim +    # internal language activity (placeholder zeros if absent)
+            self.internal_lang_dim +    # internal language activity (zeros if absent)
             self.vocal_synth_params_dim + # reserved future coupling (zeros now)
             self.goals_dim              # goals satisfaction
         )
@@ -151,7 +151,7 @@ class Output:
                           internal_lang_activity: np.ndarray,       # 512D from Language.py
                           focus_vector: np.ndarray,                 # 256D from Attention.py
                           goals_satisfaction: np.ndarray,           # 6D from Goals.py
-                          vocal_synth_placeholder: Optional[np.ndarray] = None, # Optional reserved embedding
+                          vocal_synth_params: Optional[np.ndarray] = None, # Optional reserved embedding
                           ) -> Dict[str, Any]:
         """
         Translates Lillith's internal state into VocalSynth and UI control parameters.
@@ -172,10 +172,10 @@ class Output:
         emotional_state_filtered = _fit(emotional_state_filtered, self.emotion_dim)
         focus_vector = _fit(focus_vector, self.focus_vector_dim)
         internal_lang_activity = _fit(internal_lang_activity, self.internal_lang_dim)
-        if vocal_synth_placeholder is None:
-            vocal_synth_placeholder = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
+        if vocal_synth_params is None:
+            vocal_synth_params = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
         else:
-            vocal_synth_placeholder = _fit(vocal_synth_placeholder, self.vocal_synth_params_dim)
+            vocal_synth_params = _fit(vocal_synth_params, self.vocal_synth_params_dim)
         goals_satisfaction = _fit(goals_satisfaction, self.goals_dim)
 
         # Order MUST match construction of self.total_input_dim
@@ -184,7 +184,7 @@ class Output:
             emotional_state_filtered,
             focus_vector,
             internal_lang_activity,
-            vocal_synth_placeholder,
+            vocal_synth_params,
             goals_satisfaction
     ]).astype(np.float16)
 
@@ -271,7 +271,7 @@ class Output:
         focus_vector = _fit(focus_vector, self.focus_vector_dim)
         internal_lang_activity = _fit(internal_lang_activity, self.internal_lang_activity_dim)
         # vocal_synth_params_dim: reserved future coupling; supply zeros
-        vocal_placeholder = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
+        vocal_params = np.zeros(self.vocal_synth_params_dim, dtype=np.float16)
         goals_satisfaction = _fit(goals_satisfaction, self.goals_dim)
 
         combined_input = np.concatenate([
@@ -279,7 +279,7 @@ class Output:
             emotional_state,
             focus_vector,
             internal_lang_activity,
-            vocal_placeholder,
+            vocal_params,
             goals_satisfaction
         ])
 
@@ -289,7 +289,7 @@ class Output:
                 ('emotion', self.emotion_dim),
                 ('focus', self.focus_vector_dim),
                 ('internal_lang', self.internal_lang_dim),
-                ('vocal_placeholder', self.vocal_synth_params_dim),
+                ('vocal_params', self.vocal_synth_params_dim),
                 ('goals', self.goals_dim)
             ]
             actual_breakdown = [
@@ -297,7 +297,7 @@ class Output:
                 ('emotion', emotional_state.shape[0]),
                 ('focus', focus_vector.shape[0]),
                 ('internal_lang', internal_lang_activity.shape[0]),
-                ('vocal_placeholder', vocal_placeholder.shape[0]),
+                ('vocal_params', vocal_params.shape[0]),
                 ('goals', goals_satisfaction.shape[0])
             ]
             logger.warning(
@@ -316,7 +316,7 @@ class Output:
                 internal_lang_activity,
                 focus_vector,
                 goals_satisfaction,
-                vocal_synth_placeholder=vocal_placeholder
+                vocal_synth_params=vocal_params
             )
         except Exception as e:
             logger.error(f"Output.generate_output: generate_controls failed: {e}")

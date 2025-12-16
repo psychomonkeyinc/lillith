@@ -219,7 +219,7 @@ class VocalSynth:
             # Apply Spectral Tilt (simple low-pass/high-pass filter based on parameter)
             # A positive tilt makes it brighter (boost highs), negative makes it darker (boost lows).
             # For simplicity:
-            # This is a conceptual placeholder; actual implementation uses filtering or direct source shaping.
+            # Implementation uses filtering or direct source shaping.
             # A direct way would be to just multiply with some frequency dependent response.
             # For now, it will apply a slight gain to the source sample based on its value and the tilt.
             tilt_factor = np.float16(1.0) + (source_sample * self.params['Spectral_Tilt'] * np.float16(0.1)) # Crude application

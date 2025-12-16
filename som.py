@@ -1527,7 +1527,6 @@ No deletions performed. This file stands alone (no underscores in name) as the
 monolithic biological substrate.
 """
 
-from __future__ import annotations
 import numpy as np
 import time
 import logging
@@ -2540,19 +2539,7 @@ class EndocrineSystem:
             'calmness': (profile.serotonin * 0.4 +
                         profile.melatonin * 0.3 -
                         profile.cortisol * 0.3)
-
-
-                        import numpy as np
-import logging
-from typing import Dict, List, Optional, Tuple
-import time
-from dataclasses import dataclass
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-@dataclass
-class EnergyState:
+        }
     cognitive_energy: float = 1.0  # Mental processing power
     physical_energy: float = 1.0   # Physical action capability
     recovery_rate: float = 1.0     # How fast energy replenishes

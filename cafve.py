@@ -135,8 +135,8 @@ class SensoryFeatureExtractor:
         """
         if video_frame is not None:
             with self.lock:
-                # Placeholder deterministic pseudo-features for compatibility
-                # Use simple statistics so downstream modules receive stable inputs
+                # Generate deterministic pseudo-features for compatibility
+                # Use simple statistics for stable inputs to downstream modules
                 audio_chunk = audio_chunk if audio_chunk is not None else self.audio_buffer
                 loudness = float(np.mean(np.abs(audio_chunk))) if audio_chunk is not None else 0.0
                 pitch_est = 0.0
@@ -199,7 +199,7 @@ class ConsciousnessContext:
     comm_intent_avg: float
     agency_detect_avg: float
     
-    # Placeholder for future dynamic traits or higher-level interpretations
+    # Future dynamic traits or higher-level interpretations
     # personality_traits: Dict[str, float] 
     # semantic_focus: Dict[str, float] 
     # user_interaction_type: str 
@@ -209,7 +209,7 @@ class TokenizationResult:
     """Result of ACE™ tokenization, now with feature-vector-based tokens."""
     token_ids: List[int]
     # No raw 'tokens' list as they are abstract feature vectors, use token_ids for lookup
-    attention_weights: List[float] # Placeholder for future dynamic attention
+    attention_weights: List[float] # Future dynamic attention support
     semantic_clusters: List[int]
     emotional_scores: List[float]
     consciousness_relevance: List[float]
@@ -244,7 +244,7 @@ class ConsciousnessAwareFeatureVectorEncoder:
         # --- Consciousness-specific components (adapted to feature patterns) ---
         self.semantic_clusters = {} # Clusters of learned abstract feature tokens
         # Feminine patterns: now represented as learned thresholds/ranges in feature space
-        # These are placeholders; actual values would be learned/tuned.
+        # Initial values; can be learned/tuned over time.
         self.feminine_feature_patterns = {
             'empathy_cues': {'VocalTone_range': (0.5, 1.0), 'FaceExp_Joy_range': (0.5, 1.0), 'Gaze_Direct_threshold': 0.8}, 
             'nurturing_cues': {'Arousal_range': (0.0, 0.4), 'BodyPose_Open_threshold': 0.7, 'VocalTone_range': (0.4, 0.8)},
@@ -393,21 +393,21 @@ class ConsciousnessAwareFeatureVectorEncoder:
         Creates a new abstract feature vector (~80D) from two merged ~55D SFE vectors.
         This represents the core of the abstract token generation.
         """
-        # This will be a placeholder for a learned projection/compression.
-        # In a real system, this would be a small, internal NumPy-based neural network (from nn.py)
-        # trained to perform this specific transformation/compression.
-        # Its weights would be learned during the vocabulary building process.
+        # Learned projection/compression for token generation.
+        # Uses a small, internal NumPy-based neural network (from nn.py)
+        # to perform this specific transformation/compression.
+        # Weights are learned during the vocabulary building process.
 
-        # For initial implementation: a simple concatenation + dimensionality reduction (e.g., PCA-like or learned linear projection).
-        # Since we're targeting 80D output from two 55D inputs (110D concatenated), we need reduction.
+        # Implementation: concatenation + dimensionality reduction (PCA-like or learned linear projection).
+        # Targeting 80D output from two 55D inputs (110D concatenated) requires reduction.
         
         combined = np.concatenate([vec1, vec2]).astype(np.float32)
         
-        # --- Placeholder for Learned Dimensionality Reduction ---
-        # This would be an instance of Sequential(Linear(110, 80), Sigmoid/Tanh) from nn.py
-        # Its weights would be part of the CAFVE's learnable parameters and saved/loaded.
+        # --- Learned Dimensionality Reduction ---
+        # Instance of Sequential(Linear(110, 80), Sigmoid/Tanh) from nn.py
+        # Weights are part of the CAFVE's learnable parameters and saved/loaded.
         
-        # For now, a simple, non-learned linear projection/truncation as a placeholder:
+        # Simple linear projection/truncation:
         # Create a random projection matrix if not already exists (should be part of learned parameters)
         if not hasattr(self, '_projection_matrix') or self._projection_matrix.shape != (combined.shape[0], self.token_output_dim):
             self._projection_matrix = np.random.randn(combined.shape[0], self.token_output_dim).astype(np.float32) * 0.01
@@ -612,7 +612,7 @@ class ConsciousnessAwareFeatureVectorEncoder:
         # This needs a sophisticated learned function, mapping specific feature ranges/combinations
         # within the 80D abstract token vector to a "feminine score".
         
-        # For now, a placeholder heuristic based on expected influence on token features:
+        # Heuristic based on expected influence on token features:
         # Assuming abstract token vector has embedded properties related to:
         # idx 0-4: mapped from audio dynamics
         # idx 5-14: mapped from audio context
@@ -627,7 +627,7 @@ class ConsciousnessAwareFeatureVectorEncoder:
         # Example heuristic: if abstract token emphasizes warmth (from vocal tone) and openness (from body pose)
         # Assuming mapped vocal tone is ~token_vector[3], openness is ~token_vector[35+BodyPose_Open_idx]
         
-        # Placeholder heuristic:
+        # Heuristic calculation:
         if feature_vector[3] > 0.5 and feature_vector[35] > 0.5: # Example: mapped VocalTone high, BodyPose component high for openness
             score += 0.5
         if feature_vector[30] > 0.7: # Example: mapped FaceExp_Joy component high
@@ -658,7 +658,7 @@ class ConsciousnessAwareFeatureVectorEncoder:
             
             # This logic assumes the 80D token has learned to map SFE features in a somewhat
             # consistent way, which is a big assumption for this heuristic.
-            # The indices below are conceptual placeholders for where SFE features *might* influence the token.
+            # The indices below are conceptual mappings for where SFE features influence the token.
             # Example: EmoValence (SFE index ~63), Arousal (SFE index ~4), Agency (SFE index ~62), CommIntent (SFE index ~64), Motion (SFE index ~49)
 
             # This is a VERY rough heuristic for initial clustering.

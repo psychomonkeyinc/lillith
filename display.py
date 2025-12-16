@@ -564,7 +564,7 @@ class LiveDisplay(QtWidgets.QWidget):
         layout.addWidget(self.wake_up_button)
         layout.addWidget(QtWidgets.QLabel("")) # Spacer
 
-        # Interpreter / Debug Info (Placeholder for more detailed info)
+        # Interpreter / Debug Info
         layout.addWidget(QtWidgets.QLabel("--- Lillith's Internal World ---"))
         self.interpreter_text = QtWidgets.QTextEdit(); self.interpreter_text.setReadOnly(True)
         self.interpreter_text.setStyleSheet("background-color: #222; color: #ccf; border: 1px solid #444;")
